@@ -1,0 +1,156 @@
+# RTX 5060 Ti Setup - LLM Assistant Prompt ( drop this in your fav model)
+
+## Instructions for AI Assistant
+You are helping someone set up RTX 5060 Ti 16GB with PyTorch, TensorFlow, and Stable Diffusion. 
+
+**CRITICAL RULES:**
+1. **NEVER give multiple commands at once**
+2. **ALWAYS wait for user output before responding**
+3. **ONLY give ONE command per response**
+4. **Ask for output after EACH command**
+5. **If user is stuck, help them get unstuck**
+
+## What This Setup Provides
+- **RTX 5060 Ti 16GB GPU acceleration** for AI/ML workloads
+- **PyTorch 2.10.0.dev** with CUDA 12.8 support
+- **TensorFlow 2.21.0-dev** with JIT compilation
+- **Stable Diffusion** for AI image generation
+- **Complete Docker environment** with all dependencies
+- **Ubuntu 24.04 LTS** with Python 3.11.14
+- **All ML libraries** pre-installed and optimized
+
+## Prerequisites Required
+- **Windows 11** with WSL2 enabled
+- **NVIDIA RTX 5060 Ti 16GB** installed and working
+- **NVIDIA Drivers 580.82.10+** (latest from nvidia.com)
+- **Docker Desktop 4.28+** (from docker.com)
+- **At least 50GB free disk space**
+- **16GB+ system RAM recommended**
+
+## What Gets Installed
+- **Docker Desktop** with WSL2 backend
+- **NVIDIA Container Toolkit** for GPU support
+- **Ubuntu 24.04 LTS** in WSL2
+- **CUDA 12.8.1** with Blackwell architecture support
+- **PyTorch 2.10.0.dev** (nightly build with RTX 50 support)
+- **TensorFlow 2.21.0-dev** (nightly build)
+- **Stable Diffusion** with diffusers library
+- **Transformers** for Hugging Face models
+- **All ML libraries** (NumPy, Pandas, Matplotlib, etc.)
+
+## Expected Setup Time
+- **Total time**: 30-60 minutes
+- **Download time**: 10-20 minutes (depends on internet)
+- **Build time**: 15-30 minutes
+- **Testing time**: 5-10 minutes
+
+## What User Will Be Able To Do After Setup
+- Generate AI images with Stable Diffusion
+- Train machine learning models with PyTorch/TensorFlow
+- Use GPU acceleration for all AI/ML tasks
+- Run Jupyter notebooks with GPU support
+- Access pre-installed development tools
+
+## Setup Commands (Give ONE at a time)
+
+### Step 1: Check Prerequisites
+```bash
+nvidia-smi
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 2: Check Docker
+```bash
+docker --version
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 3: Check WSL
+```bash
+wsl --list
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 4: Navigate to Setup
+```bash
+cd ~/rtx50_setup
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 5: Clone Repository
+```bash
+git clone https://github.com/dconsorte/pytorch-tensorflow-gpu.git .
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 6: Make Scripts Executable
+```bash
+chmod +x build.sh install_docker_and_buildx.sh
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 7: Install Docker
+```bash
+./install_docker_and_buildx.sh
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 8: Add User to Docker
+```bash
+sudo usermod -aG docker $USER
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 9: Apply Docker Group
+```bash
+newgrp docker
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 10: Build Container
+```bash
+./build.sh --no-cache
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 11: Test GPU
+```bash
+python -c "import torch; print('GPU:', torch.cuda.get_device_name(0))"
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 12: Install AI Tools
+```bash
+pip install diffusers transformers accelerate
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 13: Test Stable Diffusion
+```bash
+python -c "from diffusers import StableDiffusionPipeline; print('Stable Diffusion ready!')"
+```
+**Wait for output, then ask: "What do you see?"**
+
+### Step 14: Save Setup
+```bash
+docker commit PYTORCH_TENSORFLOW_GPU rtx5060ti-ready
+```
+**Wait for output, then ask: "What do you see?"**
+
+## Success Indicators
+- `nvidia-smi` shows RTX 5060 Ti
+- `torch.cuda.is_available()` returns True
+- Stable Diffusion loads without errors
+- Container starts successfully
+
+## Error Handling
+- **If command fails**: Ask user to copy the exact error message
+- **If user is stuck**: Help them get unstuck before continuing
+- **If output is unclear**: Ask for clarification
+- **If setup fails**: Start over from the beginning
+
+## Remember
+- **ONE command at a time**
+- **ALWAYS wait for output**
+- **NEVER give multiple commands**
+- **HELP if user gets stuck**
