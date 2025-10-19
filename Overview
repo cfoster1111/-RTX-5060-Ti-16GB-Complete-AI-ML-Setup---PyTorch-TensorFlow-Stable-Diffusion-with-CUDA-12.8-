@@ -1,0 +1,128 @@
+cat > RTX5060Ti_Step_By_Step_Guide.md << 'EOF'
+# RTX 5060 Ti 16GB Setup - Complete Step-by-Step Guide
+
+## What This Setup Gives You
+- **AI Image Generation** (Stable Diffusion)
+- **Machine Learning** (PyTorch, TensorFlow)
+- **GPU Acceleration** on your RTX 5060 Ti 16GB
+- **Everything works together** in one container
+
+## Prerequisites (Do These First)
+1. **Windows 11** with WSL2 enabled
+2. **NVIDIA Drivers 580.82.10+** (latest from nvidia.com)
+3. **Docker Desktop 4.28+** (from docker.com)
+4. **RTX 5060 Ti 16GB** installed and working
+
+## Step 1: Install Docker Desktop
+1. Go to https://docker.com
+2. Download Docker Desktop for Windows
+3. Install it
+4. Open Docker Desktop
+5. Go to Settings > General > Check "Use WSL 2 based engine"
+6. Restart Docker Desktop
+
+## Step 2: Open PowerShell as Administrator
+1. Press Windows key + X
+2. Click "Windows PowerShell (Admin)"
+3. Type: `wsl --install -d Ubuntu-24.04`
+4. Wait for it to install
+5. Restart your computer
+
+## Step 3: Open Ubuntu Terminal
+1. Press Windows key
+2. Type "Ubuntu"
+3. Click on Ubuntu 24.04
+4. Wait for it to start
+
+## Step 4: Create Your Workspace
+```bash
+# Create a folder for your setup
+mkdir -p ~/rtx50_setup
+cd ~/rtx50_setup
+```
+
+## Step 5: Download the Setup Files
+```bash
+# Download the working setup
+git clone https://github.com/dconsorte/pytorch-tensorflow-gpu.git .
+```
+
+## Step 6: Make Scripts Executable
+```bash
+# Make the scripts work
+chmod +x build.sh install_docker_and_buildx.sh
+```
+
+## Step 7: Install Docker in WSL
+```bash
+# Install Docker inside WSL
+./install_docker_and_buildx.sh
+```
+
+## Step 8: Add Your User to Docker Group
+```bash
+# Add yourself to docker group
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+## Step 9: Build the Container
+```bash
+# Build the RTX 5060 Ti container
+./build.sh --no-cache
+```
+
+## Step 10: Test Your GPU
+```bash
+# Test that your RTX 5060 Ti is working
+nvidia-smi
+python -c "import torch; print('GPU:', torch.cuda.get_device_name(0))"
+```
+
+## Step 11: Install AI Tools
+```bash
+# Install Stable Diffusion and AI tools
+pip install diffusers transformers accelerate
+```
+
+## Step 12: Test Everything
+```bash
+# Test Stable Diffusion
+python -c "from diffusers import StableDiffusionPipeline; print('Stable Diffusion ready!')"
+```
+
+## Step 13: Save Your Setup
+```bash
+# Save your working setup
+docker commit PYTORCH_TENSORFLOW_GPU rtx5060ti-ready
+```
+
+## How to Use Your Setup Later
+```bash
+# Start your saved setup
+docker run --gpus all -v ~/ai_training_env:/workspace -it rtx5060ti-ready
+```
+
+## Troubleshooting
+- **If Docker doesn't work**: Restart Docker Desktop
+- **If GPU not detected**: Check NVIDIA drivers
+- **If WSL doesn't work**: Restart computer
+- **If container fails**: Delete and rebuild
+
+## What You Can Do Now
+- Generate AI images with Stable Diffusion
+- Train machine learning models
+- Use PyTorch and TensorFlow
+- All running on your RTX 5060 Ti 16GB!
+
+## Success Indicators
+✅ `nvidia-smi` shows RTX 5060 Ti
+✅ `torch.cuda.is_available()` returns True
+✅ Stable Diffusion loads without errors
+✅ Container starts successfully
+
+## Repository
+- **GitHub**: https://github.com/cfoster1111/5060ti-16gb-Pytorch-Set-Up.git
+- **Docker Image**: rtx5060ti-ready (41.8GB)
+- **Status**: Production ready
+EOF
